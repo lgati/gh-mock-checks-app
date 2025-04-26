@@ -1,0 +1,43 @@
+name: Simulate External Checks
+
+on:
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  checks: write
+  contents: read
+
+jobs:
+  create-fake-external-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Fake Currents Failure Check
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "Currents E2E Tests",
+              "head_sha": "'${{ github.event.pull_request.head.sha }}'",
+              "status": "completed",
+              "conclusion": "failure",
+              "details_url": "https://currents.dev/fake-report-123",
+              "external_id": "currents-1234"
+            }'
+
+      - name: Create Fake Argos Visual Regression Check
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "Argos Visual Regression",
+              "head_sha": "'${{ github.event.pull_request.head.sha }}'",
+              "status": "completed",
+              "conclusion": "success",
+              "details_url": "https://argos-ci.com/fake-build-456",
+              "external_id": "argos-5678"
+            }'
