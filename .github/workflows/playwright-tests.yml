@@ -23,8 +23,6 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
 
       - name: Install dependencies
         if: steps.cache-node.outputs.cache-hit != 'true'
@@ -36,8 +34,6 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-browsers-
 
       - name: Install Playwright Browsers
         if: steps.cache-pw-browsers.outputs.cache-hit != 'true'
