@@ -6,5 +6,4 @@ export default defineConfig({
     video: "retain-on-failure", // Keep videos for failed tests
     trace: "on-first-retry", // Record trace on first retry (nice bonus)
   },
-  reporter: [["list"], ["@currents/playwright", { projectId: "EILla1" }]],
 });
