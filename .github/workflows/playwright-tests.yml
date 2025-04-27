@@ -18,7 +18,7 @@ jobs:
           node-version: 20
 
       - name: Cache Node.js dependencies
-        id: cache-node  
+        id: cache-node
         uses: actions/cache@v4
         with:
           path: node_modules
@@ -45,7 +45,9 @@ jobs:
 
       - name: Run Playwright tests
         env:
-          CURRENTS_API_KEY: ${{ secrets.CURRENTS_API_KEY }}
+          CI: true
+          CURRENTS_PROJECT_ID: EILla1
+          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
         run: npx playwright test
 
       - name: Upload Playwright Test Results
@@ -60,10 +62,3 @@ jobs:
             **/playwright-report/
             **/screenshots/
             **/videos/
-
-      - name: Run Playwright tests
-        env:
-          CI: true
-          CURRENTS_PROJECT_ID: EILla1
-          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
-        run: npx playwright test
