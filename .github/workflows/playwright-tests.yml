@@ -58,6 +58,7 @@ jobs:
 
       - name: Run Playwright tests
         env:
+          CURRENTS_PROJECT_ID: EILla1
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
           CURRENTS_API_KEY: ${{ secrets.CURRENTS_API_KEY }}
-        run: npx playwright test
+        run: npx pwc
