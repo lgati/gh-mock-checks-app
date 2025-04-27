@@ -10,6 +10,7 @@
   "license": "MIT",
   "keywords": [],
   "devDependencies": {
+    "@currents/playwright": "^1.12.1",
     "@playwright/test": "^1.52.0"
   }
 }

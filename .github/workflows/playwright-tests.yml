@@ -55,3 +55,10 @@ jobs:
             **/playwright-report/
             **/screenshots/
             **/videos/
+
+      - name: Run Playwright tests
+        env:
+          CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
+          CURRENTS_API_KEY: ${{ secrets.CURRENTS_API_KEY }}
+        run: npx playwright test
+
