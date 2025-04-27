@@ -17,8 +17,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Restore Node.js dependencies cache
-        uses: actions/cache/restore@v4
+      - name: Cache Node.js dependencies
+        uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
@@ -28,14 +28,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Save Node.js dependencies cache
-        uses: actions/cache/save@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
-
-      - name: Restore Playwright browsers cache
-        uses: actions/cache/restore@v4
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('package-lock.json') }}
@@ -44,12 +38,6 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-
-      - name: Save Playwright browsers cache
-        uses: actions/cache/save@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-browsers-${{ hashFiles('package-lock.json') }}
 
       - name: Run Playwright tests
         env:
@@ -71,6 +59,7 @@ jobs:
 
       - name: Run Playwright tests
         env:
+          CI: true
           CURRENTS_RECORD_KEY: ${{ secrets.CURRENTS_RECORD_KEY }}
           CURRENTS_PROJECT_ID: EILla1
         run: npx playwright test
