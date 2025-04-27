@@ -5,6 +5,13 @@ This is a mock GitHub repository designed to simulate real-world application che
 - Native GitHub Actions workflows (CI builds)
 - External App Checks (e.g., Currents, Argos CI)
 
+[![Playwright Tests](https://github.com/lgati/gh-mock-checks-app/actions/workflows/playwright-tests.yml/badge.svg)](https://github.com/lgati/gh-mock-checks-app/actions/workflows/playwright-tests.yml)
+
+## Description
+
+Mock repo to simulate external checks (Currents, Argos, etc.) and Playwright tests for CI/CD experiments.
+
+
 ## Purpose
 
 Used to test and validate GitHub Actions workflows that detect and process failed external checks.
