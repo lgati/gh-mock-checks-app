@@ -35,8 +35,8 @@ jobs:
             -d '{
               "name": "Argos Visual Regression",
               "head_sha": "'${{ github.event.pull_request.head.sha }}'",
-              "status": "failure",
-              "conclusion": "success",
+              "status": "completed",
+              "conclusion": "failure",
               "details_url": "https://argos-ci.com/fake-build-456",
               "external_id": "argos-5678"
             }'
