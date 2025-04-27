@@ -25,3 +25,16 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
+
+      - name: Upload Playwright Test Results
+        if: always() # <-- Important! Even if tests fail, still upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: |
+            test-results/
+            playwright-report/
+            **/test-results/
+            **/playwright-report/
+            **/screenshots/
+            **/videos/
