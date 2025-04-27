@@ -6,28 +6,27 @@ on:
 
 permissions:
   checks: write
+  statuses: write
   contents: read
 
 jobs:
   create-fake-external-checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Create Fake Currents Failure Check
+      - name: Create Fake Currents Status (Mocked)
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
             -d '{
-              "name": "Currents E2E Tests",
-              "head_sha": "'${{ github.event.pull_request.head.sha }}'",
-              "status": "completed",
-              "conclusion": "failure",
-              "details_url": "https://currents.dev/fake-report-123",
-              "external_id": "currents-1234"
+              "state": "failure",
+              "target_url": "https://currents.dev/fake-report-123",
+              "description": "Currents E2E Tests Failure",
+              "context": "Currents"
             }'
 
-      - name: Create Fake Argos Visual Regression Check
+      - name: Create Fake Argos Visual Regression Check (Mocked)
         run: |
           curl -X POST \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
@@ -37,7 +36,7 @@ jobs:
               "name": "Argos Visual Regression",
               "head_sha": "'${{ github.event.pull_request.head.sha }}'",
               "status": "completed",
-              "conclusion": "success",
+              "conclusion": "failure",
               "details_url": "https://argos-ci.com/fake-build-456",
               "external_id": "argos-5678"
             }'

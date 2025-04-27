@@ -1,12 +1,17 @@
 {
-    "name": "gh-mock-checks-app",
-    "version": "1.0.0",
-    "description": "A mock app to simulate GitHub external checks (Currents, Argos CI).",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Running fake tests\" && exit 0"
-    },
-    "author": "",
-    "license": "MIT"
+  "name": "gh-mock-checks-app",
+  "version": "1.0.0",
+  "description": "A mock app to simulate GitHub external checks (Currents, Argos CI).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Running fake tests\" && exit 0"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "devDependencies": {
+    "@currents/playwright": "^1.12.1",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.2"
   }
-  
+}
