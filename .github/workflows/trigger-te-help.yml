@@ -22,8 +22,8 @@ jobs:
       pr_number: ${{ github.event.issue.number || 0 }}
       comment_id: ${{ github.event.comment.id || '' }}
       comment_author: ${{ github.event.comment.user.login || '' }}
-      jira_base_url: https://businessinsider.atlassian.net
-      jira_user_email: lgati@insider.com
+      jira_base_url: https://lgatib.atlassian.net
+      jira_user_email: lucasgatti.b@gmail.com
     secrets:
       GH_TOKEN: ${{ secrets.GHA_PAT }}
       
