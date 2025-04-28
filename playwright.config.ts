@@ -15,11 +15,14 @@ export default defineConfig({
     video: "retain-on-failure", // Keep videos for failed tests
     trace: "on-first-retry", // Record trace on first retry (nice bonus)
   },
-  reporter:
-    CI === 'true'
-      ? [currentsReporter(currentsConfig), ['github'], ['list'], ['html']]
-      : [
-          ['list'],
-          ['html'],
-        ] /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */,
+  reporter: [
+    currentsReporter(),
+    [
+      // See https://argos-ci.com/docs/quickstart/playwright
+      "@argos-ci/playwright/reporter",
+      {
+        uploadToArgos: true,
+      },
+    ],
+  ],
 });

@@ -1,0 +1,33 @@
+name: Trigger TE Help 
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
+
+jobs:
+  call-te-help-workflow:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issue_comment' &&
+       startsWith(github.event.comment.body, 'help test-engineering'))
+
+    uses: lgati/gh-actions-hub/.github/workflows/te-help-workflow.yml@main
+
+    with:
+      pr_number: ${{ github.event.issue.number || 0 }}
+      comment_id: ${{ github.event.comment.id || '' }}
+      comment_author: ${{ github.event.comment.user.login || '' }}
+      jira_base_url: https://businessinsider.atlassian.net
+      jira_user_email: lgati@insider.com
+      mock_mode: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.mock_mode) || (github.event_name == 'issue_comment' && contains(github.event.comment.body, 'mock')) }}
+
+    secrets:
+      JIRA_API_TOKEN: ${{ secrets.JIRA_ACCESS_TOKEN }}
+      DD_API_KEY: ${{ secrets.DATADOG_API_KEY }}
+      DD_APP_KEY: ${{ secrets.DATADOG_APPLICATION_KEY }}
+      
