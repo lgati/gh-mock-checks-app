@@ -24,4 +24,6 @@ jobs:
       comment_author: ${{ github.event.comment.user.login || '' }}
       jira_base_url: https://businessinsider.atlassian.net
       jira_user_email: lgati@insider.com
+    secrets:
+      GH_TOKEN: ${{ secrets.GHA_PAT }}
       
