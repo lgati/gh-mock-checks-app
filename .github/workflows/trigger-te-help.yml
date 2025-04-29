@@ -11,13 +11,8 @@ permissions:
 
 jobs:
   call-te-help-workflow:
-    if: >
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'issue_comment' &&
-       startsWith(github.event.comment.body, 'help test-engineering'))
-
+    if: startsWith(github.event.comment.body, '/te-help')
     uses: lgati/gh-actions-hub/.github/workflows/te-help-workflow.yml@main
-
     with:
       pr_number: ${{ github.event.issue.number || 0 }}
       comment_id: ${{ github.event.comment.id || '' }}
@@ -27,4 +22,3 @@ jobs:
     secrets:
       GH_TOKEN: ${{ secrets.GHA_PAT }}
       JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      
