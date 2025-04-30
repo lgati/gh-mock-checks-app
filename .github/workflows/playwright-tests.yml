@@ -1,9 +1,9 @@
-name: Playwright Tests
+name: Playwright Tests 
 
 on:
-  workflow_dispatch:
-    # branches:
-    #   - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   playwright-tests:
