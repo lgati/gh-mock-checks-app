@@ -1,4 +1,4 @@
-name: Simulate External Checks 
+name: Simulate External Checks  
 
 on:
   pull_request:
@@ -13,14 +13,10 @@ jobs:
   create-fake-external-checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Simulate Currents Status Check
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Fake Currents Status (Mocked)
         run: |
-          echo "Creating fake Currents status..."
-
           curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
             -d '{
@@ -30,21 +26,18 @@ jobs:
               "context": "Currents"
             }'
 
-      - name: Simulate Argos Check Run
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Fake Argos Visual Regression Check (Mocked)
         run: |
-          echo "Creating fake Argos check-run..."
-
           curl -X POST \
-            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "Accept: application/vnd.github.v3+json" \
             https://api.github.com/repos/${{ github.repository }}/check-runs \
             -d '{
               "name": "Argos Visual Regression",
-              "head_sha": "${{ github.event.pull_request.head.sha }}",
-              "status": "completed",
+              "head_sha": "'${{ github.event.pull_request.head.sha }}'",
+              "status": "failure",
               "conclusion": "failure",
+              "description": "argos",
               "details_url": "https://argos-ci.com/fake-build-456",
               "external_id": "argos-5678"
             }'
