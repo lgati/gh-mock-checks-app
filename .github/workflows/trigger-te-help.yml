@@ -1,4 +1,4 @@
-name: Trigger TE Help
+name: Trigger TE Help 
 
 on:
   issue_comment:
