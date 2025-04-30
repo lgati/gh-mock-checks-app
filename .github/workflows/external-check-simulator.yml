@@ -36,9 +36,25 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
             -d '{
               "name": "Argos Visual Regression",
+              "head_sha": "'${{ github.event.pull_request.head.sha }}'",
               "status": "failure",
-              "conclusion": "failure",
               "description": "argos",
               "details_url": "https://argos-ci.com/fake-build-456",
               "external_id": "argos-5678"
             }'
+
+      - name: Create Fake Argos Visual Regression Check (Mocked)
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "Argos Visual Regression",
+              "head_sha": "'${{ github.event.pull_request.head.sha }}'",
+              "status": "success",
+              "description": "argos",
+              "details_url": "https://argos-ci.com/fake-build-456",
+              "external_id": "argos-5678"
+            }'
+
