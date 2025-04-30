@@ -20,5 +20,5 @@ jobs:
       jira_base_url: https://lgatib.atlassian.net
       jira_user_email: lucasgatti.b@gmail.com
     secrets:
-      GH_TOKEN: ${{ secrets.GHA_PAT }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
