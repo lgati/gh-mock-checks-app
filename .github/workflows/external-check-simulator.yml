@@ -1,4 +1,4 @@
-name: Simulate External Checks
+name: Simulate External Checks 
 
 on:
   pull_request:
