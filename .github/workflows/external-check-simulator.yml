@@ -11,43 +11,56 @@ jobs:
   create-fake-external-checks:
     runs-on: ubuntu-latest
     steps:
-      - name: Create Fake Currents Status (Mocked)
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
-            -d '{
-              "state": "failure",
-              "target_url": "https://currents.dev/fake-report-123",
-              "description": "1 failed 200 skipped",
-              "context": "Currents E2E Tests"
-            }'
-
-      - name: Create Fake Argos Status (Mocked)
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
-            -d '{
-              "state": "failure",
-              "target_url": "https://currents.dev/fake-report-123",
-              "description": "1 failed",
-              "context": "argos"
-            }'
-
-      # - name: Simulate check run
+      # - name: Create Fake Currents Status (Mocked)
       #   run: |
       #     curl -X POST \
       #       -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
       #       -H "Accept: application/vnd.github.v3+json" \
-      #       https://api.github.com/repos/${{ github.repository }}/check-runs \
+      #       https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
       #       -d '{
-      #         "name": "Argos Visual Regression",
-      #         "status": "completed",
-      #         "conclusion": "failure",
-      #         "details_url": "https://argos-ci.com/fake-build-456",
-      #         "external_id": "argos-5678"
+      #         "state": "failure",
+      #         "target_url": "https://currents.dev/fake-report-123",
+      #         "description": "1 failed 200 skipped",
+      #         "context": "Currents E2E Tests"
+      #       }'
+
+      # - name: Create Fake Argos Status (Mocked)
+      #   run: |
+      #     curl -X POST \
+      #       -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+      #       -H "Accept: application/vnd.github.v3+json" \
+      #       https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.pull_request.head.sha }} \
+      #       -d '{
+      #         "state": "failure",
+      #         "target_url": "https://currents.dev/fake-report-123",
+      #         "description": "1 failed",
       #         "context": "argos"
       #       }'
+
+      - name: Simulate check run
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "Node.js test",
+              "status": "completed",
+              "conclusion": "failure",
+              "url": "https://nodjs.failure001",
+              "external_id": "nodejs"
+              "context": "nodjs"
+            }'
+
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/check-runs \
+            -d '{
+              "name": "Node.js test",
+              "status": "completed",
+              "conclusion": "failure",
+              "url": "https://nodjs.failure002",
+              "external_id": "nodejs"
+              "context": "nodjs"
+            }'
