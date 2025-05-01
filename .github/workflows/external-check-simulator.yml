@@ -1,3 +1,5 @@
+name: Fetch Failures
+
 on:
   pull_request:
     branches: [ main ]
@@ -45,11 +47,11 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/check-runs \
             -d '{
               "name": "Node.js test",
+              "head_sha": "${{ github.event.pull_request.head.sha }}",
               "status": "completed",
               "conclusion": "failure",
-              "url": "https://nodjs.failure001",
+              "details_url": "https://nodjs.failure001",
               "external_id": "nodejs"
-              "context": "nodjs"
             }'
 
           curl -X POST \
@@ -58,9 +60,9 @@ jobs:
             https://api.github.com/repos/${{ github.repository }}/check-runs \
             -d '{
               "name": "Node.js test",
+              "head_sha": "${{ github.event.pull_request.head.sha }}",
               "status": "completed",
               "conclusion": "failure",
-              "url": "https://nodjs.failure002",
+              "details_url": "https://nodjs.failure002",
               "external_id": "nodejs"
-              "context": "nodjs"
             }'
